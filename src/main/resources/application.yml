@@ -6,3 +6,11 @@ spring:
     url: jdbc:mariadb://gugucoding.example.com:3306/gugucoding
     username: gugucoding
     password: gugucoding
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
