@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Models</title>
+</head>
+<body>
+    <h1 th:text="${'SampleDTO'}"></h1>
+    <ul>
+        <li th:each="sampleModel : ${sampleModels}">
+            [[${sampleModel}]]
+        </li>
+    </ul>
+
+    <br/>
+    <h1 th:text="${'state 객체 활용'}"></h1>
+    <ul>
+        <li th:each="sampleModel, state : ${sampleModels}">
+            [[${state.index}]] --- [[${sampleModel}]]
+        </li>
+    </ul>
+</body>
+</html>
