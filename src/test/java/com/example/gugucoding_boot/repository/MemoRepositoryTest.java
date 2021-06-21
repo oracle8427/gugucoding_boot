@@ -88,5 +88,32 @@ public class MemoRepositoryTest {
 		memoRepository.findByIdBetween(10L, 30L, pageable).forEach(memo -> log.info(memo.toString()));
 	}
 
+	@Test
+	@Order(7)
+	public void testGetListDESC() {
+		memoRepository.getListDESC().forEach(memo -> log.info(memo.toString()));
+	}
 
+
+	@Test
+	@Order(8)
+	public void testUpdateMemoText() {
+		int affected = memoRepository.updateMemoText(2, "update memo...2");
+		log.info("affected rows: " + affected);
+	}
+
+	@Test
+	@Order(9)
+	public void testUpdateMemoText2() {
+		Memo memo = new Memo(2, "update memo...2");
+		int affected = memoRepository.updateMemoText2(memo);
+		log.info("affected rows: " + affected);
+	}
+
+	@Test
+	@Order(10)
+	public void testGetListWithQuery() {
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
+		memoRepository.getListWithQuery(10L, pageable).forEach(memo -> log.info(memo.toString()));
+	}
 }
