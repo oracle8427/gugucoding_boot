@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Sample Models</title>
+    <style>
+        .target {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
     <h1 th:text="${'SampleDTO'}"></h1>
@@ -19,5 +24,40 @@
             [[${state.index}]] --- [[${sampleModel}]]
         </li>
     </ul>
+
+    <br/>
+    <h1 th:text="${'제어문 처리'}"></h1>
+    <ul>
+        <li th:each="sampleModel, state : ${sampleModels}" th:if="${sampleModel.id % 5 == 0}">
+            [[${sampleModel}]]
+        </li>
+    </ul>
+
+    <br/>
+    <h1 th:text="${'제어문 처리 (th:if, th:unless)'}"></h1>
+    <ul>
+        <li th:each="sampleModel, state : ${sampleModels}">
+            <span th:if="${sampleModel.id % 5 == 0}" th:text="${'------------------------ ' + sampleModel.id}"></span>
+            <span th:unless="${sampleModel.id % 5 == 0}" th:text="${sampleModel.first}"></span>
+        </li>
+    </ul>
+
+    <br/>
+    <h1 th:text="${'제어문 처리 (삼항연산자)'}"></h1>
+    <ul>
+        <li th:each="sampleModel, state : ${sampleModels}">
+            <span th:text="${sampleModel.id % 5 == 0} ? ${sampleModel.first} : ${sampleModel.last}"></span>
+        </li>
+    </ul>
+
+    <br/>
+    <h1 th:text="${'제어문 처리 (클래스 지정)'}"></h1>
+    <ul>
+        <li th:each="sampleModel, state : ${sampleModels}"
+            th:class="${sampleModel.id % 5 == 0} ? 'target'"
+            th:text="${sampleModel}">
+        </li>
+    </ul>
+
 </body>
 </html>
