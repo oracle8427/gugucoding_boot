@@ -61,4 +61,9 @@ public class SampleController {
 	public String fragmentsLayout() {
 		return "/fragments/layout";
 	}
+
+	@GetMapping("fragments/layout_parameter")
+	public String fragmentsLayout2() {
+		return "fragments/layout_parameter";
+	}
 }
