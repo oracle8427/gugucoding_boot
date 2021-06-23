@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Model - Inline JS Test</title>
+    <script th:inline="javascript">
+        let id = [[${sampleModel.id}]];
+        let first = [[${sampleModel.first}]];
+        let last = [[${sampleModel.last}]];
+        let registrationDateTime = [[${sampleModel.registrationDateTime}]];
+
+        alert("id: " + id + "\n" +
+            "first: " + first + "\n" +
+            "last: " + last + "\n" +
+            "registrationDateTime: " + registrationDateTime + "\n");
+    </script>
+</head>
+<body>
+    <h1 th:text="${sampleModel.id}"></h1>
+    <h1 th:text="${sampleModel.first}"></h1>
+    <h1 th:text="${sampleModel.last}"></h1>
+    <h1>[[${#temporals.format(sampleModel.registrationDateTime, 'yyyy/MM/dd HH:mm')}]]</h1>
+
+    <a th:href="@{/sample/model(id=${sampleModel.id})}">Link Parameter</a>
+    <br>
+    <a th:href="@{/sample/model/{id}(id = ${sampleModel.id})}">Link Path</a>
+</body>
+</html>
