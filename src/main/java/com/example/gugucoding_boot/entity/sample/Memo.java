@@ -1,4 +1,4 @@
-package com.example.gugucoding_boot.entity;
+package com.example.gugucoding_boot.entity.sample;
 
 import lombok.*;
 

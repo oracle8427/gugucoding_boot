@@ -1,6 +1,7 @@
 package com.example.gugucoding_boot.repository;
 
-import com.example.gugucoding_boot.entity.Memo;
+import com.example.gugucoding_boot.entity.sample.Memo;
+import com.example.gugucoding_boot.repository.sample.MemoRepository;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

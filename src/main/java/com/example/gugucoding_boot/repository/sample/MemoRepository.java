@@ -1,6 +1,6 @@
-package com.example.gugucoding_boot.repository;
+package com.example.gugucoding_boot.repository.sample;
 
-import com.example.gugucoding_boot.entity.Memo;
+import com.example.gugucoding_boot.entity.sample.Memo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
