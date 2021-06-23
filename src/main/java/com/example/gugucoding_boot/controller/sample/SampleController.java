@@ -57,4 +57,8 @@ public class SampleController {
 		model.addAttribute("sampleModel", sampleModel);
 	}
 
+	@GetMapping("/fragments/layout")
+	public String fragmentsLayout() {
+		return "/fragments/layout";
+	}
 }
