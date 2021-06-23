@@ -62,4 +62,9 @@ public class SampleController {
 
 	}
 
+	@GetMapping("layout")
+	public void layout() {
+
+	}
+
 }
