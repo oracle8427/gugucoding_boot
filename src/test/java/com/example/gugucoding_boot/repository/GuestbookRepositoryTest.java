@@ -73,5 +73,25 @@ public class GuestbookRepositoryTest {
 
 	}
 
+	@Test
+	public void queryTest2() {
+
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
+		QGuestbook qGuestbook = QGuestbook.guestbook;
+		String keyword = "1";
+
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+		// WHERE (title = '' or content = '')
+		BooleanExpression titleExpression  = qGuestbook.title.contains(keyword);
+		BooleanExpression contentExpression  = qGuestbook.content.contains(keyword);
+		BooleanExpression booleanExpression = titleExpression.or(contentExpression);
+		booleanBuilder.and(booleanExpression);
+		booleanBuilder.and(qGuestbook.id.gt(1L));
+
+		Page<Guestbook> pageGuestbook = guestbookRepository.findAll(booleanBuilder, pageable);
+		pageGuestbook.forEach(guestbook -> log.info(guestbook.toString()));
+	}
+
 
 }
