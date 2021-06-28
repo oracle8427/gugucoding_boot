@@ -2,7 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout ::setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <h1>GuestBook List Page</h1>
+        <h1 class="mt-4">GuestBook List Page</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">CreatedDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="guestbook : ${pageResult.dtoList}">
+                    <th scope="row">[[${guestbook.id}]]</th>
+                    <td>[[${guestbook.title}]]</td>
+                    <td>[[${guestbook.writer}]]</td>
+                    <td>[[${#temporals.format(guestbook.createdDate, 'yyyy/MM/dd')}]]</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item" th:if="${pageResult.prevPage}">
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber= ${pageResult.startPage - 1})}" tabindex="-1">Previous</a>
+            </li>
+
+            <li th:class=" 'page-item ' + ${pageResult.pageNumber == pageNumber ? 'active':''} "
+                th:each="pageNumber: ${pageResult.pageList}">
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageNumber})}">[[${pageNumber}]]</a>
+            </li>
+
+            <li class="page-item" th:if="${pageResult.nextPage}">
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageResult.endPage + 1})}">Next</a>
+            </li>
+        </ul>
     </th:block>
 </th:block>
 </html>
