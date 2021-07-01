@@ -21,7 +21,11 @@
             </thead>
             <tbody>
                 <tr th:each="guestbook : ${pageResult.dtoList}">
-                    <th scope="row">[[${guestbook.id}]]</th>
+                    <th scope="row">
+                        <a th:href="@{/guestbook/read(id=${guestbook.id}, pageNumber= ${pageResult.pageNumber})}">
+                            [[${guestbook.id}]]
+                        </a>
+                    </th>
                     <td>[[${guestbook.title}]]</td>
                     <td>[[${guestbook.writer}]]</td>
                     <td>[[${#temporals.format(guestbook.createdDate, 'yyyy/MM/dd')}]]</td>

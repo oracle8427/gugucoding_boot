@@ -31,4 +31,5 @@ public interface GuestbookService {
 
 	PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO pageRequestDTO);
 
+	GuestbookDTO read(Long id);
 }

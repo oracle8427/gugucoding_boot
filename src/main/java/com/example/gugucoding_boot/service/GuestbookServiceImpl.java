@@ -32,5 +32,10 @@ public class GuestbookServiceImpl implements GuestbookService {
 		return new PageResultDTO<>(pageResult, function);
 	}
 
+	@Override
+	public GuestbookDTO read(Long id) {
+		return guestbookRepository.findById(id).map(this::entityToDTO).orElse(null);
+	}
+
 
 }
