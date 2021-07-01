@@ -1,7 +1,9 @@
 package com.example.gugucoding_boot.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +21,8 @@ import java.time.LocalDateTime;
  * MapStruct 라이브러리 (https://mapstruct.org) 등을 이용하기도 한다.
  * */
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class GuestbookDTO {
 	private Long id;
