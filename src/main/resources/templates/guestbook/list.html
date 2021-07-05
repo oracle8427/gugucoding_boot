@@ -10,6 +10,26 @@
                 </a>
             </span>
         </h1>
+        <form action="/guestbook/list" method="get" id="searchForm">
+            <div class="input-group">
+                <input type="hidden" name="pageNumber" value="1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="searchType">
+                        <option th:selected="${pageRequestDTO.searchType == null}">-------</option>
+                        <option value="t" th:selected="${pageRequestDTO.searchType =='t'}" >제목</option>
+                        <option value="c" th:selected="${pageRequestDTO.searchType =='c'}"  >내용</option>
+                        <option value="w"  th:selected="${pageRequestDTO.searchType =='w'}" >작성자</option>
+                        <option value="tc"  th:selected="${pageRequestDTO.searchType =='tc'}" >제목 + 내용</option>
+                        <option value="tcw"  th:selected="${pageRequestDTO.searchType =='tcw'}" >제목 + 내용 + 작성자</option>
+                    </select>
+                </div>
+                <input class="form-control" name="searchKeyword" th:value="${pageRequestDTO.searchKeyword}">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+                    <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+                </div>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -22,7 +42,9 @@
             <tbody>
                 <tr th:each="guestbook : ${pageResult.dtoList}">
                     <th scope="row">
-                        <a th:href="@{/guestbook/read(id=${guestbook.id}, pageNumber= ${pageResult.pageNumber})}">
+                        <a th:href="@{/guestbook/read(id=${guestbook.id}, pageNumber= ${pageResult.pageNumber},
+                        searchType=${pageRequestDTO.searchType},
+                        searchKeyword=${pageRequestDTO.searchKeyword})}">
                             [[${guestbook.id}]]
                         </a>
                     </th>
@@ -36,16 +58,22 @@
 
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item" th:if="${pageResult.prevPage}">
-                <a class="page-link" th:href="@{/guestbook/list(pageNumber= ${pageResult.startPage - 1})}" tabindex="-1">Previous</a>
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber= ${pageResult.startPage - 1},
+                searchType=${pageRequestDTO.searchType},
+                searchKeyword=${pageRequestDTO.searchKeyword})}" tabindex="-1">Previous</a>
             </li>
 
             <li th:class=" 'page-item ' + ${pageResult.pageNumber == pageNumber ? 'active':''} "
                 th:each="pageNumber: ${pageResult.pageList}">
-                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageNumber})}">[[${pageNumber}]]</a>
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageNumber},
+                searchType=${pageRequestDTO.searchType},
+                searchKeyword=${pageRequestDTO.searchKeyword})}">[[${pageNumber}]]</a>
             </li>
 
             <li class="page-item" th:if="${pageResult.nextPage}">
-                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageResult.endPage + 1})}">Next</a>
+                <a class="page-link" th:href="@{/guestbook/list(pageNumber = ${pageResult.endPage + 1},
+                searchType=${pageRequestDTO.searchType},
+                searchKeyword=${pageRequestDTO.searchKeyword})}">Next</a>
             </li>
         </ul>
 
@@ -60,6 +88,14 @@
             if(removeResult) {
                 alert("삭제되었습니다. ID: " + removeResult);
             }
+
+            let searchForm = $("#searchForm");
+            $(".btn-search").click(function() {
+                searchForm.submit();
+            });
+            $(".btn-clear").click(function() {
+                searchForm.empty().submit();
+            });
         </script>
     </th:block>
 </th:block>

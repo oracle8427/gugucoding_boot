@@ -24,6 +24,8 @@ public class GuestbookServiceTest {
 		PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
 				.pageNumber(1)
 				.pageSize(10)
+				.searchType("w")
+				.searchKeyword("aaa")
 				.build();
 
 		PageResultDTO<GuestbookDTO, Guestbook> pageResultDTO = guestbookService.getList(pageRequestDTO);

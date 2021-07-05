@@ -15,6 +15,8 @@ public class PageRequestDTO {
 
 	private int pageNumber;
 	private int pageSize;
+	private String searchType;
+	private String searchKeyword;
 
 	public PageRequestDTO() {
 		this.pageNumber = 1;

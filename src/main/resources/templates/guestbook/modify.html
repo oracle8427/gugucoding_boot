@@ -40,6 +40,9 @@
       <button type="button" class="btn btn-info list">List</button>
       <button type="button" class="btn btn-danger remove">Remove</button>
       <input type="hidden" name="pageNumber" th:value="${pageRequestDTO.pageNumber}">
+      <input type="hidden" name="searchType" th:value="${pageRequestDTO.searchType}">
+      <input type="hidden" name="searchKeyword" th:value="${pageRequestDTO.searchKeyword}">
+
     </form>
 
     <script>
@@ -60,8 +63,14 @@
 
       $('.list').click(function() {
         let pageNumber = $("input[name='pageNumber']");
+        let searchType = $("input[name='searchType']");
+        let searchKeyword = $("input[name='searchKeyword']");
+
         actionForm.empty();
         actionForm.append(pageNumber);
+        actionForm.append(searchType);
+        actionForm.append(searchKeyword);
+
         actionForm.attr('action', '/guestbook/list')
                 .attr('method', 'get');
         actionForm.submit();
