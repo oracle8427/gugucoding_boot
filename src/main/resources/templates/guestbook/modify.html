@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout ::setContent(~{this::content})}">
+  <th:block th:fragment="content">
+    <h1 class="mt-4">GuestBook Modify Page</h1>
+    <form action="/guestbook/modify" method="post">
+      <div class="form-group">
+        <label>ID</label>
+        <input type="text" class="form-control" name="id" th:value="${guestbookDTO.id}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" th:value="${guestbookDTO.title}">
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Content</label>
+        <textarea type="text" class="form-control" name="content" rows="5">[[${guestbookDTO.content}]]</textarea>
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Writer</label>
+        <input type="text" class="form-control" name="writer" th:value="${guestbookDTO.writer}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+        <label>CreatedDate</label>
+        <input type="text" class="form-control"
+               th:value="${#temporals.format(guestbookDTO.createdDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+        <label>LastModifiedDate</label>
+        <input type="text" class="form-control"
+               th:value="${#temporals.format(guestbookDTO.lastModifiedDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+      </div>
+      <br>
+      <button type="button" class="btn btn-primary modify">Modify</button>
+      <button type="button" class="btn btn-info list">List</button>
+      <button type="button" class="btn btn-danger remove">Remove</button>
+      <input type="hidden" name="pageNumber" th:value="${pageRequestDTO.pageNumber}">
+    </form>
+
+    <script>
+      let actionForm = $("form");
+      $(".remove").click(function() {
+        actionForm.attr("action", "/guestbook/remove")
+                .attr("method", "post");
+        actionForm.submit();
+      });
+
+      $('.modify').click(function () {
+          if(!confirm("수정하시겠습니까?")) {
+            return;
+          }
+          actionForm.attr("action", "/guestbook/modify")
+                  .attr("method", "post").submit();
+      });
+
+      $('.list').click(function() {
+        let pageNumber = $("input[name='pageNumber']");
+        actionForm.empty();
+        actionForm.append(pageNumber);
+        actionForm.attr('action', '/guestbook/list')
+                .attr('method', 'get');
+        actionForm.submit();
+      });
+    </script>
+  </th:block>
+</th:block>
+</html>

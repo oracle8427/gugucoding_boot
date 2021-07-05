@@ -37,5 +37,19 @@ public class GuestbookServiceImpl implements GuestbookService {
 		return guestbookRepository.findById(id).map(this::entityToDTO).orElse(null);
 	}
 
+	@Override
+	public void remove(Long id) {
+		guestbookRepository.deleteById(id);
+	}
+
+	@Override
+	public void modify(GuestbookDTO guestbookDTO) {
+		guestbookRepository.findById(guestbookDTO.getId()).ifPresent(guestbook -> {
+			guestbook.changeTitle(guestbookDTO.getTitle());
+			guestbook.changeContent(guestbookDTO.getContent());
+			guestbookRepository.save(guestbook);
+		});
+	}
+
 
 }
