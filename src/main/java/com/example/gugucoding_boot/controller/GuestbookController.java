@@ -2,10 +2,8 @@ package com.example.gugucoding_boot.controller;
 
 import com.example.gugucoding_boot.dto.GuestbookDTO;
 import com.example.gugucoding_boot.dto.PageRequestDTO;
-import com.example.gugucoding_boot.dto.PageResultDTO;
 import com.example.gugucoding_boot.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout ::setContent(~{this::content})}">
+  <th:block th:fragment="content">
+    <h1 class="mt-4">Board Read Page</h1>
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" class="form-control" name="id" th:value="${boardDTO.id}" readonly>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" name="title" th:value="${boardDTO.title}" readonly>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Content</label>
+      <textarea type="text" class="form-control" name="content" rows="5" readonly>[[${boardDTO.content}]]</textarea>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Writer</label>
+      <input type="text" class="form-control" name="writer" th:value="${boardDTO.writerName}" readonly>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>CreatedDate</label>
+      <input type="text" class="form-control" name="createdDate"
+             th:value="${#temporals.format(boardDTO.createdDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+    </div>
+    <br>
+    <div class="form-group">
+      <label>LastModifiedDate</label>
+      <input type="text" class="form-control" name="lastModifiedDate"
+             th:value="${#temporals.format(boardDTO.lastModifiedDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+    </div>
+    <br>
+    <a th:href="@{/guestbook/modify(id=${guestbookDTO.id}, pageNumber=${pageRequestDTO.pageNumber},
+                searchType=${pageRequestDTO.searchType},
+                searchKeyword=${pageRequestDTO.searchKeyword})}">
+      <button type="button" class="btn btn-primary">Modify</button>
+    </a>
+    &nbsp;
+    <a th:href="@{/guestbook/list/(pageNumber=${pageRequestDTO.pageNumber},
+                searchType=${pageRequestDTO.searchType},
+                searchKeyword=${pageRequestDTO.searchKeyword})}">
+      <button type="button" class="btn btn-info">List</button>
+    </a>
+  </th:block>
+</th:block>
+</html>
