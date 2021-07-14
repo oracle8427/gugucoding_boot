@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.function.Function;
 
 @Service
@@ -42,7 +41,12 @@ public class BoardServiceImpl implements BoardService {
 				(Board) entity[0],
 				(Member) entity[1],
 				(Long) entity[2]));
-		Page<Object[]> pageResult = boardRepository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("id").descending()));
+		// Page<Object[]> pageResult = boardRepository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("id").descending()));
+		Page<Object[]> pageResult = boardRepository.searchPage(
+				pageRequestDTO.getSearchType(),
+				pageRequestDTO.getSearchKeyword(),
+				pageRequestDTO.getPageable(Sort.by("id").descending())
+		);
 		return new PageResultDTO<>(pageResult, function);
 	}
 
@@ -68,7 +72,6 @@ public class BoardServiceImpl implements BoardService {
 		replyRepository.deleteReplyById(id);
 		boardRepository.deleteById(id);
 	}
-
 
 	@Override
 	public void modify(BoardDTO boardDTO) {
